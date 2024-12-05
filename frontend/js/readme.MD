@@ -21,6 +21,9 @@
         - https://www.w3schools.com/js/js_versions.asp
         - 2009 : ES5, ECMAScript 5, 현재 형태로 개정
         - 2015 : `ES6`, ECMAScript 2015, ECMA2015, 현재 기본 표준형태 => `ES Next`
+        - 2015 이후 : 매년 문법이 추가되어서 ECMA 에서 발표
+        - 특징
+            - 최신문법 작성된 JS -> 특정시점의 표준으로 변환(ES6), babel -> Es6로 변환되어서 구동
 
     - JS 표현 범위
         - TS(typeScript) > ES Next > ES5
@@ -30,19 +33,24 @@
     - JS의 최종 산출물
         - ES6 (모든 브라우저에서 정상적 작동함)
 
-- 언어 기본
+- 프로그램 언어 기본
     - 표현식 (expression)
         - 값을 생성(획득)하는 코드 단위
         - 파트, 조각
         - 문자을 완성하는 과정, 조각
-        
+
     - 문장(statement)
         - 작업 수행 단위
         - ;으로 끝난다. 단, JS는 생략 가능함
 
+    - 참고
+        - 조각이 모여서 => 문장이 완성
+        - 문장이 모여서 => 코드, 모듈, 함수 등 단위가 완성 => 개발할때 task 단위
+
     - 키워드
         - 예약어
         - 식별자로 사용 x
+        - IDE에서는 다른 색상으로 표현됨 (통상 블루칼라)
         - ex) function, var, let, const, if, while
 
     - 식별자 (identifier)
@@ -65,11 +73,34 @@
                 - ex) get_name, get_age_for_man
             - ...
 
-- 타입
+- 타입 -> 데이터의 최종엔딩 => 0와 1
+    - Null      -> 값이 없다
+    - Undefined -> 정의되지 않았다
+    - Boolean   -> * 참(true)과 거짓(false), 블린형
+    - Number    -> * 수치형 데이터 (정수, 부동소수..)
+    - Bigint    -> 더큰 범위를 가진 정수
+    - String    -> * 문자열( "자바스크립트" )
+    - Symbol    -> 심볼
+    - Object    -> * 객체형
+
 - 변수
+    - 1_var.js
+    
+- 문자열
+    - 2_string.js
+
 - 연산자
+    - 3_operator.js
+
 - 형변환
 - 흐름제어 : 조건문, 제어문, 반복문
+
 - 함수
+    -7_function.js
+
+- 배열 -> js내부에서 정의된 특수 객체
+    - 8_array.js
+
 - 클레스, 객체
 - 최신문법
+    -es next 기준, es6이후
