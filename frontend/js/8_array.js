@@ -70,12 +70,22 @@ function mulx3 ( data ) {
 let results = arr2.map( mulx3 );
 console.log( results );
 
-// 코드를 간결하게 구성
+// 코드를 간결하게 구성 => 화살표 함수 나 익명함수로 직접 함수를 인자로 전달!!
 let results2 = arr2.map(  data  => data * 3 );
 console.log( arr2, results2 );
+// 서버로부터 데이터를 받아서 차트 구성, 게시판 구성, ... 유용하게 사용될 수 있음
 
 // filter
 // 배열의 맴버를 하나씩 꺼내서 조건에 맞는 맴버만 추린다
+// 배열 데이터 arr3에서 값이 30 이상(>=)인 데이터만 추출하시오
+// 초과 (>)
+let arr3 = [10, 20, 30, 40, 50];
+function cb( data ) {
+    // data는 arr3번 배열에서 하나씩 꺼내서 cb 호출할때 전달하는 데이터
+    // 필터링 : 30 이상(>=) 참, 아니면 거짓 => 조건식(의 결론 boolean)
+    return data >= 30 ;
+}
+let results3 = arr3.filter( cb );
 
 // reduce
 // 배열의 맴버를 하나씩 꺼내서 누적합, 누적곱, 등등 일괄연산 처리한다
