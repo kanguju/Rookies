@@ -93,14 +93,43 @@
     - 3_operator.js
 
 - 형변환
-- 흐름제어 : 조건문, 제어문, 반복문
+    - 4_typecasting.js
+
+- 흐름제어 : 조건문, 반복문 <= 제어문
+    - 5_flowcontrol_if.js
+    - 6_flowcontrol_loop.js
+
+- 여기까지 문법을 이용하여 프로그램 작성 => 절차적 프로그래밍
 
 - 함수
-    -7_function.js
+    - 7_function.js
 
-- 배열 -> js내부에서 정의된 특수 객체
+- 배열 -> js내부에서 정의된 특수 객체    
     - 8_array.js
 
-- 클레스, 객체
-- 최신문법
-    -es next 기준, es6이후
+- 객체
+    - 최신문법(es next이후)에서 클레스 표기법이 추가됨
+    - 타 언어의 객체와 비슷하지만 다르다!!
+    - 객체지향 프로그래밍 스타일을 따르지만 실제적으로는 다르다
+    - 데이터 형식를 표방한다(키:값의 조합) => JSON과 매칭된다 => {}
+    - 9_object.js
+    - 10_class.js
+
+- 최신문법 => 코드의 효율성 극대화!!
+    - es next 기준, es6이후
+    - 비구조화 할당
+        - 배열의 비구조화 할당, 배열 분해
+            - 11_unstructure_array.js
+        - (*)객체의 비구조화 할당, 객체 분해
+            - 12_unstructure_object.js
+    - 스프레드 연산
+        - ...
+        - 13_spread_oper.js
+    - 비동기 처리
+        - 콜백헬 문제
+        - Promise 패턴
+        - async ~ await
+        - generator, ... <= 복잡
+        - 14_async_promise.js
+    - 연산시 null/undefined에 대한 오류대비 처리
+    
