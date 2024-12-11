@@ -6,6 +6,7 @@
     - css selector 나머지 규칙 실습 적용
         - 5_jqeury_css_selector.html
     - chart 적용까지 확인
+        - 6_chart_jquery.html
     
 -->
 <html>
@@ -35,6 +36,7 @@
          * jQuery 기본 문법
          *  - html 요소를 정의하는 변수 표현 방법
          *      - $('css selector|키워드')
+         *      - 키워드 : document, this, ...
          *  - 기능 (JS의 모든 기능을 간결하게 함수로 제공함) -> 생산성 극대화!!
          *      - 요소조작(html 동적구성)
          *      - 통신(네트워크 => ajax 중심 통신)
@@ -54,6 +56,7 @@
             // 이벤트가 발동걸린 상황만 활용=> 로그인처리는  ajax로 처리하겟다(컨셉)
             console.log('로그인 처리명렁 수행');
             // 1.4  로그인 처리 + ajax(비동기, 백드라우드로로 통신, 화면껌벅 x)
+            // $.ajax(), $.get(), $.post(), ..
             $.get({        // ajax({   // post방식 요청
                 // 어떤 내용을 전달해야 서버로 요청이 가는가?
                 // 서버주소, 데이터를 전송하는 방식, 전달할데이터(파라미터)
@@ -62,8 +65,8 @@
                 url     : "http://127.0.0.1:5500/html_css/data/sales.json", // 임시
                 //method  : "",
                 // 객체 <- 직렬화 | 역직렬화-> 문자열
-                data    : $('#formSend').serializeArray(), //"",
-                dataType: "json", // 응답의 형태 : txt, xml, json, ...
+                data    : $('#formSend').serializeArray(), //"키=값&키=값",
+                dataType: "json", // 응답의 형태(텍스트) : txt, xml, json, ...
                 success : (data)=>{
                     console.log('성공', data);
                 }, // 통신 성공 -> .then()

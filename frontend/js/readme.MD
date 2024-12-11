@@ -132,5 +132,7 @@
         - generator, ... <= 복잡
         - 14_async_promise.js
     - 연산시 null/undefined에 대한 오류대비 처리
-        - 15_call_null_safe.js
+        - 15_cal_null_safe.js
+
+- 예외처리
     

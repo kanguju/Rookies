@@ -9,6 +9,12 @@
             - *.ts
             - type + es next 문법 -> 트랜스컴파일 -> es next -> babel -> 호환코드( es5|es6) 변환
             - 위의 과정 => 빌드(build)
+        
+        - 문법의 범위
+            - TS > ES Next > ES5
+                - 상위 언어로 갈수로 수단의 문제임
+            - 어떤 언어로 개발하던 결론(최종구동되는 코드)
+                -> ES5 or ES6 임 <= 빌드 과정을 통해 완성됨
     
     - 제작사
         - meta (구 페이스북)
@@ -18,7 +24,7 @@
             - https://github.com/eGovFramework/egovframe-template-simple-react
         - 기타 사용 빈도
             - https://trends.stackoverflow.co/?tags=angular,vue.js,reactjs,jquery
-                - 현재 1위 react
+                - 현재 1위 react (점유율)
             - https://tsh.io/state-of-frontend/
                 - 트랜드및 같이 언급되는 기술
                 - react/next.js
@@ -55,6 +61,8 @@
             - 훅
                 - 해당 개념이 도입 => 객체지향적에서 `함수지향적`으로 전환
             - ...
+                - 앱(웹)을 구성하는데 필요한 모든 생태계 준비되 어있다
+                    - npmjs.com 에서 검색
     
     - history
         - 2010 ~ 15
@@ -69,6 +77,8 @@
             - 넷플릭스 적용 -> 프런트앤드 시장 확산
         - 국내
             - TOSS, 카카오, 네이버, 네이버지도,... 
+                - 2020이후 많이 회사 채택
+                - react + django 많이 사용 <= JS, 파이썬
             - 지도플랫폼 대부분 적용
 
 # next.js
@@ -87,6 +97,8 @@
             - The library for web and native user interfaces
             - 웹 프런트엔드 - react or reactjs 
             - 앱(스마트폰:ios, android) - react native
+            - 학습, api 문서 제공, 개발의 권장 방식 지원 x(자유롭게)
+                - API 개선, 추가된방향성 -> 함수지향적
     - 개발 환경
         - 온라인 플랫폼
             - https://codepen.io/pen
@@ -104,10 +116,278 @@
             - (*)nodejs기반 react 웹구성 <= 최종형태
                 - npm방식 설치
 
-# basic
+# basic-cdn
     - html 기반에서 cdn 방식으로 react 설치
     - 기본적인 react 구동 매커니즘 이해
     - React Developer Tools 설치
         - https://react.dev/learn/react-developer-tools
         - 크롬
             - https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en&pli=1
+    
+    - 리액트 구동 매커니즘 이해
+    - 커스텀 컴포넌트 구성
+        - 함수형, 객체형
+        - props, state, 이벤트 처리
+        - 화면갱신 매커니즘 (상태변수 업데이트 -> 화면갱신)
+    - JSX 구성 규칙
+        - html은 소문자, 커스텀 컴포넌트 첫글자 대문자
+        - 루트 필요, 오버랩x (태그가 어긋나게 겹쳐진경우)
+        - ();...
+
+# app-npm
+    - 약식
+        - cmd 구동
+            - PS 사용시 PSSecurityException 발생될수 있음
+            - PS를 관리자모드로 구동
+                ```
+                PS C:\WINDOWS\system32> Set-ExecutionPolicy RemoteSigned
+
+                실행 규칙 변경
+                실행 정책은 신뢰하지 않는 스크립트로부터 사용자를 보호합니다. 실행
+                정책을 변경하면 about_Execution_Policies 도움말
+                항목(https://go.microsoft.com/fwlink/?LinkID=135170)에 설명된 보안
+                위험에 노출될 수 있습니다. 실행 정책을 변경하시겠습니까?
+                [Y] 예(Y)  [A] 모두 예(A)  [N] 아니요(N)  [L] 모두 아니요(L)
+                [S] 일시 중단(S)[?] 도움말 (기본값은 "N"): y
+                ```
+        - npm i create-react-app -g
+            - 1회만 진행
+        - 프로젝트 위치 이동 
+            - cd ~\frontend\react\app-npm <= 적당한경로
+        - npx create-react-app demo
+            - 프로젝트 생성
+            - 않되는 경우
+                - 맥 > sudo 명령어...
+                - node -v => 14이상 체크
+                - npm -v => 5.2이상 체크
+                    - nodejs 재설치
+                    - npm install -g npm                
+        - cd demo
+            - 프로젝트 이동
+        - npm start
+            - 프로젝트 실행
+
+# app-npm
+    - 리액트를 이용하여 frontend 앱(웹)을 구성하는 방식
+    - nodejs 기반
+    - npm : nodejs의 패키지 관리자
+        - yarn 제품도 사용
+        - 타언어/OS
+            - 맥 : brew
+            - 리눅스 : apt
+            - 파이썬 : pip, conda
+        - 용도
+            - 패키지 설치 (가장 기본)
+    - 리액트 앱을 기본적으로 생성하는 제품
+        - 구동 방식 CLI(commnad line interface) 방식
+        - create-react-app
+            - https://www.npmjs.com/package/create-react-app
+            - 설치
+                ```
+                    # i =>  install
+                    # -g => global, OS 어디서던 create-react-app 사용가능
+                    # PS에서 설치 PSSecurityException 조치 필요
+                    # CMD에서 실행
+                    npm i create-react-app -g
+                ```
+            - 사용이유
+                - 기본 프로젝트 뼈대가 간결하다!!
+                - 차후, 좀더 많은 기능이 들어간 보일러플레이트 사용
+                    - 기본 프로젝트 구조, 명려어(빌드포함), 포멧터,...
+        
+    - 프로젝트 생성
+        - 적절한 위치로 이동
+            - ~\frontend\react\app-npm
+        - npx create-react-app demo
+            - 맥 : sudo npx create-react-app demo
+
+    - 프로젝트 구동
+        - cd demo
+        - 실행
+            - npm start
+            - 허용(1회성)
+        - 중단
+            - ctrl + c
+        - react 버전이 19로 업그레이드 되면서 설정에 약간 문제 발생
+            - create-react-app의 관리문제
+            - 조치
+            - package.json
+                ```
+                    ...
+                    "dependencies": {
+                        ..                        
+                        ,"web-vitals": "^4.2.4" <= 추가함
+                    },
+                    ...
+                ```
+            - 패치지 수동 설치 (현 프로젝트 폴더 내)
+                - npm install
+
+    - 프로젝트 구조
+        - 구조 확인 명령
+            - tree /f 
+        ```
+        /
+        ├─ node_modules    : 프로젝트에 필요한 라이브러리 위치
+        │                  : npm install 명령후 설치됨
+        │                  : (여기서는 자동설치), git업로드x
+        ├─ .gitignore      : git(형상관리)에 업로드시 무시되는 
+        │                  : 파일 기제. node_modules는 반드시 추가
+        ├─ (*)package.json    : 프로젝트에 대한 메타 정보 기술
+        │                  : 명령어, 메타정보, 라이브러리등 기술
+        │                  : 프로젝트 체크시 가장먼저 검토
+        ├─public
+        │      favicon.ico
+        │      (*)index.html  : SPA관점에서 1개의 html이됨
+        │      logo192.png
+        │      logo512.png
+        │      manifest.json
+        │      robots.txt
+        │
+        └─src
+                App.css     : 커스텀 컴포넌트의 css
+                App.js      : 커스텀 컴포넌트(관습적, 첫글자 대문자)
+                          : App.js or App.jsx <-> App.ts or App.tsx
+                App.test.js : 단위 테스트용
+                index.css   : 메인 css
+                (*)index.js    : react 메인코드, 기본구성
+                logo.svg
+                reportWebVitals.js
+                setupTests.js
+        ```
+
+# package.json
+    - nodejs 계열 프로젝트 구조중 가장 먼저 체크!!
+    - dependencies : 써드 파트 라이브러리
+        - npm install  명령에 의해 설치
+        - creat-react-app은 자동으로 npm install 처리됨
+        - 라이브러리 설치        
+            - 목표 : dependencies 기술, 설치
+            - 위의 목표를 명령어 1번에 수행 가능함
+                - 차후 라이브러리 추가시 적용
+        - 샌드박스 모델 => 외부에서는 사용 불가!!
+
+    - scripts : 명령어
+        - 개발 예시
+            - 기술내용 => "start": "react-scripts start",
+            - 실제사용 => npm [run] start
+
+        - 빌드(배포용생성) 예시 
+            - "build": "react-scripts build"
+            - npm run build
+            - 프로젝트 내부에 build 폴더 생성 -> 배포파일
+                - 정적 데이터로 구성된 파일
+                - *.html, *.css, *.js, 리소스, 폴더
+                - 백엔드에 배포, 단독서버구동시 배포용
+
+
+# ES Module (ESM) 방식
+    - 모듈(*.js) 가져오기
+        - 목적
+            - 다른 개발자가 만든 모듈을 내가 작성 하는 코드에 가져와서 사용
+        - 문법
+            - (*)ESM, CJS 존재
+    - node = 모듈 + 디렉토리(같은 유형의 모듈을 묶어둔 그룹, 패키지라고 부르기도 하지만 뉘앙스는 다름)
+    
+    - ESM 문법 (가져오기)
+        - import App from '모듈의이름|상대경로+커스텀모듈';
+            
+            - 모듈의이름 : 써드 파트 모듈, npmjs에서 검색되는 모듈
+                - from 'react'; <= 써드파트 모듈중에 react에서 ..
+
+            - 상대경로+커스텀모듈 : 직접 만든 모듈
+                - from './App' <= 현재 작성중인 코드와 같은 경로에 있는 App.js를 찾아서(출처)
+
+        - import App
+            - 가져온 모듈을 특정 이름으로 대체한것임(임의의 이름)
+            - 예시
+                - import App from './App';
+                - import App2 from './App';
+                - import App3 from './App';
+            - 통상
+                - 파일명와 동일하게 구성
+                - 대표 모듈명
+        
+        - import { A, B, c  } from './Xxx';
+            - 개별 모듈 가져오기
+            - 출처에서 모듈화된 개별 모듈을 가져오는 표현
+    
+    - ESM 문법 (모듈화)
+        - 대표 모듈
+            - export default App;
+                - 코드 가장 마지막줄에 표현(통상)
+                - export default 컴포넌트명;
+            - 기타 표현은 내일 체크
+        - 개별 모듈
+    
+    - 실습
+        - 현재위치 ~/react
+        - mkdir esm
+        - dir(명령프럼프트) or ls(파워쉘, 맥-터미널)
+        - cd esm
+        - 화면청소
+            - cls(명령프럼트프) or clear(파워쉘, 맥-터미널)
+        - node 프로젝트 생성
+            - npm init
+                - package.json 생성을 위한 질의 진행 -> 엔터!!
+        - 코드 작성
+            - index.js
+            - mod.js
+        - 구조
+            /esm
+            L index.js      : esm 방식으로 모듈 가져오기 표현
+            L mod.js        : esm 방식으로 모듈화 표현
+            L package.json
+
+
+# 컴포넌트의 라이프사이클
+    - 목적
+        - 컴포넌트의 생애주기 이해
+        - 객체형 컴포넌트 사용 (여기서만 테스트 가능함)
+        - 함수형 컴포넌트는 사용 불가
+            - 16버전 이후 추가된 `훅`에서 대체 처리 가능
+    - 구조
+        - App.js에 LifeCycle 컴포넌트를 모듈 가져오기를 하여 추가
+    - 구성
+        - ~/src/LifeCycle.js 생성
+
+
+# 커스텀 컴포넌트 구현
+    - npm 기반
+    - ~/src/MyInput.js 생성
+        - input 태그를 커스텀 하여 특정 기능을 가진 입력요소구성
+        - 객체형 컴포넌트로 구성
+    - 기본 형태
+        ```
+            // 1. 모듈 가져오기
+            import React, { Component } from "react";
+
+            // 2. 커스텀 컴포넌트 구현 ( (*)객체형 | 함수형 )
+            class MyInput extends Component {
+                constructor(props) {
+                    super(props);
+                }
+                render () {
+                    return (
+                        <>
+                        </>
+                    );
+                }
+            }
+            // 3. 커스텀 컴포넌트의 대표 모듈화
+            export default MyInput;            
+        ```
+    
+    - ~/src/MyCheckBox.js 생성
+        - MyCheckBox.js
+        - 체크박스 표현
+    
+    - ~/src/MySelect.js 생성
+        - MySelect.js
+        - html에서 여러 항목중 선택 담당 요소
+            ```
+                <select>
+                    <option value="선택값">서울시</option>
+                    <option value="선택값">부산시</option>
+                </select>
+            ```

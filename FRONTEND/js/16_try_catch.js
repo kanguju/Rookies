@@ -14,7 +14,7 @@ function makeError() {
     // 오류를 임의로 생성해서 던지기
     throw new Error("임의로 발생시킨 오류");
 }
-// I/O 를 사용하는 코드 => 무조건 예외처리
+// I/O 를 사용하는 코드 => 무조건 예외처리 진행!!
 try {
     console.log(1); // 정상코드
     makeError();    // 잠재적으로 오류를 유발할수 있는 코드
@@ -22,6 +22,6 @@ try {
 } catch (error) {
     console.log('에러', error); // 에러 처리 코드
 } finally {         // 정상적, 오류가 발생했던 => 무조건 진입 (뒷정리 코드)
-    // 여기를 진입 => 셧다운 없었음을 의미
-    console.log(3); // i/o가 있었다면 => close() 처리 
+    // 여기를 진입 => 셧다운 없음을 의미
+    console.log(3); // i/o가 있었다면 => close() 처리
 }

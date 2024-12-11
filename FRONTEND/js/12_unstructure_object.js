@@ -9,7 +9,7 @@
 // 객체 생성 1번 유형 객체 리터럴로 구성하시오
 // 실습 1분
 const pay = {
-    name:"커피",
+    name:"커피", // 객체의 키(맴버변수명) => 의미/의도를 가지고 있음
     price:1500
 };
 console.log( pay ); 
@@ -19,7 +19,7 @@ console.log( pay );
 console.log( pay.name );
 
 // 개선 => 비구조화 할당, 분해 -> react 에서 많이 사용
-// 분해시 맴버명과 동일해야 한다!!
+// 분해시 맴버명과 `동일`해야 한다!!
 let { price, name, nm } = pay; // 순서 x
 console.log( price, name, nm ); // nm은 pay 내부에 존재 하지 않음 => undefined
 
@@ -38,3 +38,4 @@ const person = {
 // age를 추출하시오
 const { spec:{ age } } = person;
 console.log( age );
+
