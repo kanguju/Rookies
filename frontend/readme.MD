@@ -1,162 +1,534 @@
-# 기본준비
-    - 구글 계정 하나 준비
-    - github.com/노션 가입
+# 리액트 개요
+    - 개발언어
+        - Javascript
+            - *.js
+            - es next 문법 -> babel -> 호환코드( es5|es6) 변환 -> html에 포함되어 실행 (external)
+            - 위의 과정 => 빌드(build)
 
-# 웹서비스의 이해(workflow)
-    - 웹 이용
-        - 1. 브라우저(크롬,에지,사파리,..) 오픈
-            - PC
-            - 모바일(스마트폰)
-
-        - (*)2. 원하는 서비스 이용
-            - 주소창에 도메인입력 (https://www.coupang.com/)
-                - 엔터(행위 -> `요청(request)`)
-            - 검색 -> 검색결과 클릭 -> 진입(`요청`)
-
-        - 3. 내부적인 요청 처리
-            - 3-1. DNS(Domain Name System) 조회
-                - www.coupang.com => 92.132.44.13 (IP 주소로 변환)
-                - 요청을 이어감
-            - 3-2. 서버와 연결 설정
-                - TCP/IP 기반
-                    - 프로토콜을 기반해서 용어가 정의
-                    - 프로토콜 : 통신규약, ..
-                        - 웹은 어떤 프로토콜으로 통신하는가?
-                        - http or https
-                - `클라이언트(브라우저) <-> 서버(서비스 제공 주체)`
-                    - 서버는 어디에 위치?
-                        - 과거(레거시) : 자사내부(온프레미스), IDC 센터
-                        - 현재 : 클라우드 서비스내에 특정 존에 존재(분산)함
-                            - 클라우드는 전세계 여러 데이터센터에 존재할 수 있다
-                            - aws, azure, google cloud
-                    - IP를 통해서 서버를 찾아간다!!
+        - TypeScript
+            - *.ts
+            - type + es next 문법 -> 트랜스컴파일 -> es next -> babel -> 호환코드( es5|es6) 변환
+            - 위의 과정 => 빌드(build)
         
-        - (*)4. 서버측 요청 처리
-            - 클라이언트의 요청 도착
-            - 요청 해석 -> 누가 처리할것이지? -> 특정한 대상으로 요청 넘김
-                - 라우팅 => 백엔드포지션 스프링부트에서 확인
-            - 처리
-                - 로그인 처리: 클라이언트가 보낸 ID/pw 획득,   
-                - 조회 : 데이터베이스 접속, 쿼리, ..
-                - 다양한 비즈니스 업무 처리
-        
-        - (*)5. 응답 (Response)
-            - html + css + javascript 을 구성하여 응답
-                - 웹 페이지
-            - xml or json(데이터포멧, 반정형데이터)으로 구성하여 응답
-                - restful, 오픈 API로 응답받는 형식
-                - 화면 x
-                - 내부적으로 사용(혹은 백단에서 사용)
-        
-        - 6. 응답 데이터 클라이언트에게 전송
-            - 클라이언트 <-> 서버 연결되어 있으므로 가능
-            - http|https
-        
-        - 7. 브라우저 랜더링
-            - 응답 데이터 -> 파싱(해석, 메모리로드) -> 화면처리(랜더링)
-            - 사용자는 브라우저를 통해서 결과를 확인한다!!
-            - 여기까지 처리시간 0.x초
-        
-            
-    - 웹서비스 구조 (3-tier)
-        - 프런트엔드
-            - html + css + javascript
-                - 사용자가 `브라우저`를 통해 만나는 서버의 응답 결과
-                - 구성
-                    - html5 : 구조(뼈대), 콘텐츠포함
-                    - css3 : 레이아웃, 디자인, 반응형, 애니메이션
-                        - 반응형:PC용, 모바일용 동시 처리?
-                    - javascript : 인터렉션(사용자<->브라우저, 상호작용), 이벤트, 통신, 동적화면구성
-                        - typescript
-            - 2012~15 
-                - javascript -> 크롬브라우저(2007~8) -> v8엔진 공개 ->  nodejs 등장 -> js가 주력 언어로 도약
-                - SPA(Single Page Application) 개념 등장, 개발(플랫폼) 
-                    - Angularjs(구글) -> `reactjs(메타)` -> vuejs(커뮤니티)
-                    - 1개 페이지내에서 랜더링만 처리하여 새로운 화면을 구성할수 있다면 => 더 빠른 서비스 제공할수 있지 않을까?
-                    - 예시
-                        - 대시보드(실시간처리), 지도기반서비스, 넷플리스, 신규 서비스(데이터분석등등) ,.. 적용중
-        - 백엔드
-            - `웹서비스`를 제공하는 s/w
-                - 프로젝트의 목적 => 웹서비스!!
-            - 개발언어 중심 분류
-                - `자바(oracle)`
-                    - servlet -> jsp, ejs -> Spring -> `SpringBoot`
-                    - 전자정부프레임웍 : Spring, `SpringBoot`
-                    - 기업체(엔터프라이즈급, 중/대형) 많이 사용
-                - 파이썬
-                    - django(국내) , flask(북미), fastapi(가장 빠르다)
-                    - 데이터분석, 머신러닝/딥러닝, 생성형AI 활용한 서비스
-                - C# (MS)
-                    - asp -> asp.net -> .net
-                    - 여행, 항공, 숙박 예약 (중대형 시스템)
-                    - 윈도우서버를 기반으로 하는 서비스
-                - javascript/typescript(node 기반)
-                    - nodejs(백엔드)
-                        - expressjs
-                        - react-> nextjs,...
-                    - spa(프런트)
-                        - angularjs
-                            - 유투브,..
-                        - `react`
-                            - 국내 많이 사용중
-                            - 전세계적으로 비중이 높다
-                        - vue
-                            - 확산되고 있다!!
-                - php
-                    - php ~ 
-                    - 소형 기업, 개인프로젝트등 많이 사용
-
-        - 데이터베이스
-            - 데이터를 저장하는 저장소, ..
-            - 종류
-                - RDB : 관계형 데이터베이스
-                    - `Mysql`, Mariadb, aws 오로라, postgre
-                    - ms-sql
-                    - Oracle
-                    - ...
-                    - 기존의 시스템의 데이터 저장에 적합
-                - NoSQL
-                    - mongoDB
-                    - redis
-                    - ....
-                    - 로그, 비정형데이터등등 빅데이터 저장쪽에 적합
-
-    - 프로토콜
-
-# 자바스크립트
-## 개발 환경 구축
-    - nodejs 설치
-        - https://nodejs.org/en
-        - Node.js® is a free, open-source, cross-platform JavaScript runtime environment
-        - js를 개발하고 구동시키는 환경을 제공
+        - 문법의 범위
+            - TS > ES Next > ES5
+                - 상위 언어로 갈수로 수단의 문제임
+            - 어떤 언어로 개발하던 결론(최종구동되는 코드)
+                -> ES5 or ES6 임 <= 빌드 과정을 통해 완성됨
     
-    - IDE (개발 통합 환경)
-        - vscode 설치
-        - https://code.visualstudio.com/
-        - 경량, 대부분의 언어 지원(범용), git지원(형상관리), ...
-        - 강력한 extension 지원
+    - 제작사
+        - meta (구 페이스북)
+    
+    - 현재 개발등 포지션
+        - 전자정부프레임웍 채택
+            - https://github.com/eGovFramework/egovframe-template-simple-react
+        - 기타 사용 빈도
+            - https://trends.stackoverflow.co/?tags=angular,vue.js,reactjs,jquery
+                - 현재 1위 react (점유율)
+            - https://tsh.io/state-of-frontend/
+                - 트랜드및 같이 언급되는 기술
+                - react/next.js
+                    - next.js는 reat기반으로 백엔드 구성할 수 있다
+                    - typescript 형태로 주로 개발됨
+    
+    - SPA
+        - Single Page Application
+            - html 1개 존재
+            - 사용자 인터렉션에 맞춰 화면갱신(페이지 변환(라우팅), 동적구성) 
+                - 특정 요소를 타겟으로 다양한 비즈니스를 랜더링, 처리
+                - 유저 입장에서는 10개의 화면-> 개발관점은 1개의 html일뿐
+            - 프레임웍
+                - react > angulra , vue(최근 중/대기업에서 찾기는함) 
+                - vue는 앞선 기술을 기반으로 발전
+    
+    - 특징
+        - react 사용이유
+            - 개발자 가장 많다!! -> 서적, 참고자료, 등등 가장 많다!!
+            - 강력한 스펀서 (메타)
+            - 웹, 앱(react native), PC기반(electron 활용)
+            - .... 
+        - 기술적
+            - 페이지 전환 : 라우팅
+            - 페이지간 데이터 공유
+                - 명시적 단방향 관리(순환구조)
+                    - 복잡하지만, 명확하다!!
+                - <->vue는 양방향 관리, 자유도 높다
+            - JSX(Javascript XML) 지원
+                - html + js를 결합한 구조
+                - 화면 구성, 내용, 인터렉션형태 
+            - 강력한 서드파트 라이브러리, 이식성 강함(공통)
+                - npmjs.com
+            - 훅
+                - 해당 개념이 도입 => 객체지향적에서 `함수지향적`으로 전환
+            - ...
+                - 앱(웹)을 구성하는데 필요한 모든 생태계 준비되 어있다
+                    - npmjs.com 에서 검색
+    
+    - history
+        - 2010 ~ 15
+            - 개발 시도 -> 페이스북, 인스타그램 적용시도
+            - 애플의 앱규제 적책이 트리거!! -> 자체적인 플랫폼 필요!!
+            - html5, css3, js발전등 
+            - 실패
+            - 인스타그램 인수후 적용시
+                - 웹으로 개발 목표 -> 리액트,  JSX 등 개념
+        - 2016이후
+            - 인스타그램 적용
+            - 넷플릭스 적용 -> 프런트앤드 시장 확산
+        - 국내
+            - TOSS, 카카오, 네이버, 네이버지도,... 
+                - 2020이후 많이 회사 채택
+                - react + django 많이 사용 <= JS, 파이썬
+            - 지도플랫폼 대부분 적용
 
-## vscode extension 설치(개발 도움)
-    - code runner
-        - js 코드를 작동시 내부에서 바로 실행가능하게 버튼 제공
-    - live server
-        - html 코드를 가상 서버를 가동시켜서 작동(확인)
-    - prettier-code formatter
-        - 포멧터
-        - 팀내에서 동일한 스타일의 코드를 유지보수
-    - auto rename tag
-        - 태그명 변경시 자동으로 닫기 태그가 수정되는 기능
-    - meterial icon theme
-        - 꾸미기 (아이콘을 통해 각 파일/디렉토리 표현)
+# next.js
+    - react기반 개발
+    - 기존 프런트엔드는 CSR 중심
+    - next.js를 도입 => SSR을 사용할수 있게 지원
+        - 유사 제품도 많음
+    - react/next.js
+        - 스프링부트와 next.js 는 충돌점이 많음!!
+        - 차후 프로젝트 사용시  next 사용한다면, 포지션 정리필요!! 
+    - 차후 문제
 
-## Javascript 언어
-    - 개요
-    - 언어 기본
-    - 타입
-    - 변수
-    - 연산자
-    - 형변환
-    - 흐름제어 : 조건문, 제어문, 반복문
-    - 함수
-    - 클레스, 객체
-    - 최신문법
+# 개발 환경 구축
+    - 공식 공홈
+        - react.dev
+            - The library for web and native user interfaces
+            - 웹 프런트엔드 - react or reactjs 
+            - 앱(스마트폰:ios, android) - react native
+            - 학습, api 문서 제공, 개발의 권장 방식 지원 x(자유롭게)
+                - API 개선, 추가된방향성 -> 함수지향적
+    - 개발 환경
+        - 온라인 플랫폼
+            - https://codepen.io/pen
+            - https://codesandbox.io/p/sandbox/new?file=%2Fpublic%2Findex.html%3A15%2C56
+            - https://stackblitz.com/edit/react-jsztca?file=src%2FApp.js
+
+        - 로컬 환경
+            - (*)html내에서 묘사 <=환경/방식 익숙하게 하는 장치
+                - CDN방식 설치 -> 실제 개발 x
+                ```
+                    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+                    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+                    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+                ```
+            - (*)nodejs기반 react 웹구성 <= 최종형태
+                - npm방식 설치
+
+# basic-cdn
+    - html 기반에서 cdn 방식으로 react 설치
+    - 기본적인 react 구동 매커니즘 이해
+    - React Developer Tools 설치
+        - https://react.dev/learn/react-developer-tools
+        - 크롬
+            - https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en&pli=1
+    
+    - 리액트 구동 매커니즘 이해
+    - 커스텀 컴포넌트 구성
+        - 함수형, 객체형
+        - props, state, 이벤트 처리
+        - 화면갱신 매커니즘 (상태변수 업데이트 -> 화면갱신)
+    - JSX 구성 규칙
+        - html은 소문자, 커스텀 컴포넌트 첫글자 대문자
+        - 루트 필요, 오버랩x (태그가 어긋나게 겹쳐진경우)
+        - ();...
+
+# app-npm
+    - 약식
+        - cmd 구동
+            - PS 사용시 PSSecurityException 발생될수 있음
+            - PS를 관리자모드로 구동
+                ```
+                PS C:\WINDOWS\system32> Set-ExecutionPolicy RemoteSigned
+
+                실행 규칙 변경
+                실행 정책은 신뢰하지 않는 스크립트로부터 사용자를 보호합니다. 실행
+                정책을 변경하면 about_Execution_Policies 도움말
+                항목(https://go.microsoft.com/fwlink/?LinkID=135170)에 설명된 보안
+                위험에 노출될 수 있습니다. 실행 정책을 변경하시겠습니까?
+                [Y] 예(Y)  [A] 모두 예(A)  [N] 아니요(N)  [L] 모두 아니요(L)
+                [S] 일시 중단(S)[?] 도움말 (기본값은 "N"): y
+                ```
+        - npm i create-react-app -g
+            - 1회만 진행
+        - 프로젝트 위치 이동 
+            - cd ~\frontend\react\app-npm <= 적당한경로
+        - npx create-react-app demo
+            - 프로젝트 생성
+            - 않되는 경우
+                - 맥 > sudo 명령어...
+                - node -v => 14이상 체크
+                - npm -v => 5.2이상 체크
+                    - nodejs 재설치
+                    - npm install -g npm                
+        - cd demo
+            - 프로젝트 이동
+        - npm start
+            - 프로젝트 실행
+
+# app-npm
+    - 리액트를 이용하여 frontend 앱(웹)을 구성하는 방식
+    - nodejs 기반
+    - npm : nodejs의 패키지 관리자
+        - yarn 제품도 사용
+        - 타언어/OS
+            - 맥 : brew
+            - 리눅스 : apt
+            - 파이썬 : pip, conda
+        - 용도
+            - 패키지 설치 (가장 기본)
+    - 리액트 앱을 기본적으로 생성하는 제품
+        - 구동 방식 CLI(commnad line interface) 방식
+        - create-react-app
+            - https://www.npmjs.com/package/create-react-app
+            - 설치
+                ```
+                    # i =>  install
+                    # -g => global, OS 어디서던 create-react-app 사용가능
+                    # PS에서 설치 PSSecurityException 조치 필요
+                    # CMD에서 실행
+                    npm i create-react-app -g
+                ```
+            - 사용이유
+                - 기본 프로젝트 뼈대가 간결하다!!
+                - 차후, 좀더 많은 기능이 들어간 보일러플레이트 사용
+                    - 기본 프로젝트 구조, 명려어(빌드포함), 포멧터,...
+        
+    - 프로젝트 생성
+        - 적절한 위치로 이동
+            - ~\frontend\react\app-npm
+        - npx create-react-app demo
+            - 맥 : sudo npx create-react-app demo
+
+    - 프로젝트 구동
+        - cd demo
+        - 실행
+            - npm start
+            - 허용(1회성)
+        - 중단
+            - ctrl + c
+        - react 버전이 19로 업그레이드 되면서 설정에 약간 문제 발생
+            - create-react-app의 관리문제
+            - 조치
+            - package.json
+                ```
+                    ...
+                    "dependencies": {
+                        ..                        
+                        ,"web-vitals": "^4.2.4" <= 추가함
+                    },
+                    ...
+                ```
+            - 패치지 수동 설치 (현 프로젝트 폴더 내)
+                - npm install
+
+    - 프로젝트 구조
+        - 구조 확인 명령
+            - tree /f 
+        ```
+        /
+        ├─ node_modules    : 프로젝트에 필요한 라이브러리 위치
+        │                  : npm install 명령후 설치됨
+        │                  : (여기서는 자동설치), git업로드x
+        ├─ .gitignore      : git(형상관리)에 업로드시 무시되는 
+        │                  : 파일 기제. node_modules는 반드시 추가
+        ├─ (*)package.json    : 프로젝트에 대한 메타 정보 기술
+        │                  : 명령어, 메타정보, 라이브러리등 기술
+        │                  : 프로젝트 체크시 가장먼저 검토
+        ├─public
+        │      favicon.ico
+        │      (*)index.html  : SPA관점에서 1개의 html이됨
+        │      logo192.png
+        │      logo512.png
+        │      manifest.json
+        │      robots.txt
+        │
+        └─src
+                App.css     : 커스텀 컴포넌트의 css
+                App.js      : 커스텀 컴포넌트(관습적, 첫글자 대문자)
+                          : App.js or App.jsx <-> App.ts or App.tsx
+                App.test.js : 단위 테스트용
+                index.css   : 메인 css
+                (*)index.js    : react 메인코드, 기본구성
+                logo.svg
+                reportWebVitals.js
+                setupTests.js
+        ```
+
+# package.json
+    - nodejs 계열 프로젝트 구조중 가장 먼저 체크!!
+    - dependencies : 써드 파트 라이브러리
+        - npm install  명령에 의해 설치
+        - creat-react-app은 자동으로 npm install 처리됨
+        - 라이브러리 설치        
+            - 목표 : dependencies 기술, 설치
+            - 위의 목표를 명령어 1번에 수행 가능함
+                - 차후 라이브러리 추가시 적용
+        - 샌드박스 모델 => 외부에서는 사용 불가!!
+
+    - scripts : 명령어
+        - 개발 예시
+            - 기술내용 => "start": "react-scripts start",
+            - 실제사용 => npm [run] start
+
+        - 빌드(배포용생성) 예시 
+            - "build": "react-scripts build"
+            - npm run build
+            - 프로젝트 내부에 build 폴더 생성 -> 배포파일
+                - 정적 데이터로 구성된 파일
+                - *.html, *.css, *.js, 리소스, 폴더
+                - 백엔드에 배포, 단독서버구동시 배포용
+
+
+# ES Module (ESM) 방식
+    - 프로젝트 생성 (node 프로젝트 기본 절차)
+        - 원하는 작업 폴더 이동
+            - mkdir esm
+            - cd esm
+        - 프로젝트 생성
+            - npm init
+                - package.json 생성과정 
+                    - 질의 => 엔터 
+        - 개발
+            - *.js 생성
+        - 응용
+            - 위의 과정을 한개의 명령어 모두 처리 + 필요한 파일(템플릿) 제공
+            - ex) create-react-app, ... or 보일러플레이트(git에 등록된 리소스)
+        
+    - 모듈(*.js) 가져오기
+        - 목적
+            - 다른 개발자가 만든 모듈을 내가 작성 하는 코드에 가져와서 사용
+        - 문법
+            - (*)ESM, CJS 존재
+    - node = 모듈 + 디렉토리(같은 유형의 모듈을 묶어둔 그룹, 패키지라고 부르기도 하지만 뉘앙스는 다름)
+    
+    - ESM 문법 (가져오기)
+        - import App from '모듈의이름|상대경로+커스텀모듈';
+            
+            - 모듈의이름 : 써드 파트 모듈, npmjs에서 검색되는 모듈
+                - from 'react'; <= 써드파트 모듈중에 react에서 ..
+
+            - 상대경로+커스텀모듈 : 직접 만든 모듈
+                - from './App' <= 현재 작성중인 코드와 같은 경로에 있는 App.js를 찾아서(출처)
+
+        - import App
+            - 가져온 모듈을 특정 이름으로 대체한것임(임의의 이름)
+            - 예시
+                - import App from './App';
+                - import App2 from './App';
+                - import App3 from './App';
+            - 통상
+                - 파일명와 동일하게 구성
+                - 대표 모듈명
+        
+        - import { A, B, c  } from './Xxx';
+            - 개별 모듈 가져오기
+            - 출처에서 모듈화된 개별 모듈을 가져오는 표현
+    
+    - ESM 문법 (모듈화)
+        - 대표 모듈
+            - export default App;
+                - 코드 가장 마지막줄에 표현(통상)
+                - export default 컴포넌트명;
+            - 기타 표현은 내일 체크
+        - 개별 모듈
+    
+    - 실습
+        - 현재위치 ~/react
+        - mkdir esm
+        - dir(명령프럼프트) or ls(파워쉘, 맥-터미널)
+        - cd esm
+        - 화면청소
+            - cls(명령프럼트프) or clear(파워쉘, 맥-터미널)
+        - node 프로젝트 생성
+            - npm init
+                - package.json 생성을 위한 질의 진행 -> 엔터!!
+        - 코드 작성
+            - index.js
+            - mod.js
+        - 구조
+            /esm
+            L index.js      : esm 방식으로 모듈 가져오기 표현
+            L mod.js        : esm 방식으로 모듈화 표현
+            L package.json
+
+
+# 컴포넌트의 라이프사이클
+    - 목적
+        - 컴포넌트의 생애주기 이해
+        - 객체형 컴포넌트 사용 (여기서만 테스트 가능함)
+        - 함수형 컴포넌트는 사용 불가
+            - 16버전 이후 추가된 `훅`에서 대체 처리 가능
+    - 구조
+        - App.js에 LifeCycle 컴포넌트를 모듈 가져오기를 하여 추가
+    - 구성
+        - ~/src/LifeCycle.js 생성
+
+
+# 커스텀 컴포넌트 구현
+    - npm 기반
+    - ~/src/MyInput.js 생성
+        - input 태그를 커스텀 하여 특정 기능을 가진 입력요소구성
+        - 객체형 컴포넌트로 구성
+    - 기본 형태
+        ```
+            // 1. 모듈 가져오기
+            import React, { Component } from "react";
+
+            // 2. 커스텀 컴포넌트 구현 ( (*)객체형 | 함수형 )
+            class MyInput extends Component {
+                constructor(props) {
+                    super(props);
+                }
+                render () {
+                    return (
+                        <>
+                        </>
+                    );
+                }
+            }
+            // 3. 커스텀 컴포넌트의 대표 모듈화
+            export default MyInput;            
+        ```
+    
+    - ~/src/MyCheckBox.js 생성
+        - MyCheckBox.js
+        - 체크박스 표현
+    
+    - ~/src/MySelect.js 생성
+        - MySelect.js
+        - html에서 여러 항목중 선택 담당 요소
+            ```
+                <select>
+                    <option value="선택값">서울시</option>
+                    <option value="선택값">부산시</option>
+                </select>
+            ```
+
+
+# 훅(hook)
+    - 리액트 16에서 추가된 기능
+    - 함수형 컴포넌트에 훅이 추가 => 리액트 개발 방식 전환
+    - 훅
+        - 함수형 컴포넌트에 객체형 컴포넌트의 기능을 비슷하게 대체처리
+        - 생애주기함수(함수형 x) 훅을 통해 대체처리
+    - 종류
+        - 제공되는 기본 훅
+        - 커스텀 훅 => 대부분 라이브러리에서 응용
+
+    - 프로젝트 새로 생성
+        - 프로젝트명 : hook-test
+        - 방식 : npm
+        - 위치 : ~/react/app-npm/hook-test
+        - 구성 실습 2분
+        - 생성절차
+            - 현재 위치 : ~/react/app-npm/
+            - npx create-react-app hook-test
+            - package.json
+                - ,"web-vitals": "^4.2.4" 추가
+                - cd hook-test
+                - npm install
+                    - npm -v : 버전 체크 = 10.9.0
+                        - 5.x.x 이상부터는 npm install 모듈 진행하면
+                        - package.json에 dependencies 파트에 자동으로 삽입된다
+                            - 과거 npm install 모듈 --save
+            - npm start
+
+# hook-test
+    - 훅 연습
+    - 함수형 컴포넌트 연습 => 세션1 프로젝트의 프런트엔드 최종 개발 형태
+    - 기본 형태
+        ```
+            // 1. 모듈 가져오기
+            import './App.css';
+            import {
+                useState,       // 상태변수->화면갱신
+                useEffect,      // 중요한 생애 주기 함수 대체(부분)
+                useMemo,        // 데이터     
+                useCallback,    // 함수
+                useRef,         // 데이터, 변경되어도 랜더링 되지 않는다, 참조
+                useContext,     // 여러 컴포넌트가 접근하여 사용하는 데이터 관리    
+            } from "react";
+
+            // 2. 대표 모듈화 + 커스텀 컴포넌트 정의 ( 객체형 | (*)함수형 )
+            //export default function App ( props ) {
+            // or
+            export default const App = ( props ) => {
+                return (
+                    <div className='App'>
+                        <div className='App-header'>
+                            작성
+                        </div>
+                    </div>
+                );
+            }            
+        ```
+
+# 기타
+    - (*)네트워크 처리 -> 통신, ajax ( fetch, axios )
+    - 라우팅 -> 페이지 이동, 페이지간 데이터 전달
+    - (*)페이지간 데이터 공유, 관리 -> 1세대:redux ~`3세대`:??
+        - 전역적 데이터(상태) 관리
+        - 상위 컴포넌트 -> 하위컴포넌트 공유 useContext
+        - 관계(없는) 컴포넌트가 동일한 데이터를 바라보고, 컨트롤, 업데이트 등등 처리 
+          (공유) => flux => redux(1세대) -> mobx(2세대) -> zustand(3세대) : 써드파트 라이브러리
+                 => 기본 개념 유사 => 사용의 편의성 문제!!
+            - zustand
+                - state-management solution (전역적(모든위치에서) 상태 관리 솔류션)
+                - useReducer 사용하는 방식과 유사함!!
+            - 실습 
+                - ~/src/state/*.js 작성
+            - 설치 
+                - npm install zustand
+                - npm|yarn|...
+
+    - (*)템플릿 적용 -> UI, 디자인
+        - 대시보드 + 게시판, 게산기등 서브페이지로 세팅
+        - 머터리얼 디자인 (안드로이드폰에 적용된 디자인)
+            - mui.com
+            ```
+                # package.json 수정 => 버전 이슈
+
+                "dependencies": {
+                    "@emotion/react": "^11.13.3",
+                    "@emotion/styled": "^11.13.0",
+                    "@mui/icons-material": "^6.1.1",
+                    "@mui/material": "^6.1.1",
+                    "@testing-library/jest-dom": "^5.17.0",
+                    "@testing-library/react": "^13.4.0",
+                    "@testing-library/user-event": "^13.5.0",
+                    "@toolpad/core": "^0.10.0",
+                    
+                    ...
+                    
+                    "react": "^18.3.1",
+                    "react-dom": "^18.3.1",
+                    ...
+                },
+
+                # 수정후 저장 => npm install
+            ```
+            - 설치않되는분들
+                - npm install @mui/material @mui/icons-material @emotion/react @emotion/styled --legacy-peer-deps 
+                - 위 명령어로 직접 설치
+    - (*)커스텀 훅    
+        - 많은 개발사에서 자체 개발로 사용중 (자체 라이브러리 개발용)
+        - CusHook.js, useWindowInfo.js
+    - (*)useReducer
+    - 다양한 CSS 적용
+        - CSS 직접 적용
+        - CSS Modules 방식
+        - 써드파트 라이브러리 (선택적!!)
+            - css style-components 방식
+            - emotion 라이브러리 적용 (mui 컴포넌트가 emotion 사용)
+            - tailwind 라이브러리 적용
+            - *.scss|sass (Sassy CSS)
+            - ...
+        - 실습 
+            - ~/src/css
+    - 빌드 -> 최종 형태!! -> 단독서비스<->백엔드 혹은 백엔드 포함
+
+# ADV
+    - TypeScript 업그레드
+    - Next.js 이식

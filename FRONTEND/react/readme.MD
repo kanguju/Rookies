@@ -282,6 +282,20 @@
 
 
 # ES Module (ESM) 방식
+    - 프로젝트 생성 (node 프로젝트 기본 절차)
+        - 원하는 작업 폴더 이동
+            - mkdir esm
+            - cd esm
+        - 프로젝트 생성
+            - npm init
+                - package.json 생성과정 
+                    - 질의 => 엔터 
+        - 개발
+            - *.js 생성
+        - 응용
+            - 위의 과정을 한개의 명령어 모두 처리 + 필요한 파일(템플릿) 제공
+            - ex) create-react-app, ... or 보일러플레이트(git에 등록된 리소스)
+        
     - 모듈(*.js) 가져오기
         - 목적
             - 다른 개발자가 만든 모듈을 내가 작성 하는 코드에 가져와서 사용
@@ -391,3 +405,138 @@
                     <option value="선택값">부산시</option>
                 </select>
             ```
+
+
+# 훅(hook)
+    - 리액트 16에서 추가된 기능
+    - 함수형 컴포넌트에 훅이 추가 => 리액트 개발 방식 전환
+    - 훅
+        - 함수형 컴포넌트에 객체형 컴포넌트의 기능을 비슷하게 대체처리
+        - 생애주기함수(함수형 x) 훅을 통해 대체처리
+    - 종류
+        - 제공되는 기본 훅
+        - 커스텀 훅 => 대부분 라이브러리에서 응용
+
+    - 프로젝트 새로 생성
+        - 프로젝트명 : hook-test
+        - 방식 : npm
+        - 위치 : ~/react/app-npm/hook-test
+        - 구성 실습 2분
+        - 생성절차
+            - 현재 위치 : ~/react/app-npm/
+            - npx create-react-app hook-test
+            - package.json
+                - ,"web-vitals": "^4.2.4" 추가
+                - cd hook-test
+                - npm install
+                    - npm -v : 버전 체크 = 10.9.0
+                        - 5.x.x 이상부터는 npm install 모듈 진행하면
+                        - package.json에 dependencies 파트에 자동으로 삽입된다
+                            - 과거 npm install 모듈 --save
+            - npm start
+
+# hook-test
+    - 훅 연습
+    - 함수형 컴포넌트 연습 => 세션1 프로젝트의 프런트엔드 최종 개발 형태
+    - 기본 형태
+        ```
+            // 1. 모듈 가져오기
+            import './App.css';
+            import {
+                useState,       // 상태변수->화면갱신
+                useEffect,      // 중요한 생애 주기 함수 대체(부분)
+                useMemo,        // 데이터     
+                useCallback,    // 함수
+                useRef,         // 데이터, 변경되어도 랜더링 되지 않는다, 참조
+                useContext,     // 여러 컴포넌트가 접근하여 사용하는 데이터 관리    
+            } from "react";
+
+            // 2. 대표 모듈화 + 커스텀 컴포넌트 정의 ( 객체형 | (*)함수형 )
+            //export default function App ( props ) {
+            // or
+            export default const App = ( props ) => {
+                return (
+                    <div className='App'>
+                        <div className='App-header'>
+                            작성
+                        </div>
+                    </div>
+                );
+            }            
+        ```
+
+# 기타
+    - (*)네트워크 처리 -> 통신, ajax ( fetch, axios )
+    - 라우팅 -> 페이지 이동, 페이지간 데이터 전달
+    - (*)페이지간 데이터 공유, 관리 -> 1세대:redux ~`3세대`:??
+        - 전역적 데이터(상태) 관리
+        - 상위 컴포넌트 -> 하위컴포넌트 공유 useContext
+        - 관계(없는) 컴포넌트가 동일한 데이터를 바라보고, 컨트롤, 업데이트 등등 처리 
+          (공유) => flux => redux(1세대) -> mobx(2세대) -> zustand(3세대) : 써드파트 라이브러리
+                 => 기본 개념 유사 => 사용의 편의성 문제!!
+            - zustand
+                - state-management solution (전역적(모든위치에서) 상태 관리 솔류션)
+                - useReducer 사용하는 방식과 유사함!!
+            - 실습 
+                - ~/src/state/*.js 작성
+            - 설치 
+                - npm install zustand
+                - npm|yarn|...
+
+    - (*)템플릿 적용 -> UI, 디자인
+        - 대시보드 + 게시판, 게산기등 서브페이지로 세팅
+        - 머터리얼 디자인 (안드로이드폰에 적용된 디자인)
+            - mui.com
+            ```
+                # package.json 수정 => 버전 이슈
+
+                "dependencies": {
+                    "@emotion/react": "^11.13.3",
+                    "@emotion/styled": "^11.13.0",
+                    "@mui/icons-material": "^6.1.1",
+                    "@mui/material": "^6.1.1",
+                    "@testing-library/jest-dom": "^5.17.0",
+                    "@testing-library/react": "^13.4.0",
+                    "@testing-library/user-event": "^13.5.0",
+                    "@toolpad/core": "^0.10.0",
+                    
+                    ...
+                    
+                    "react": "^18.3.1",
+                    "react-dom": "^18.3.1",
+                    ...
+                },
+
+                # 수정후 저장 => npm install
+            ```
+            - 설치않되는분들
+                - npm install @mui/material @mui/icons-material @emotion/react @emotion/styled --legacy-peer-deps 
+                - 위 명령어로 직접 설치
+    - (*)커스텀 훅    
+        - 많은 개발사에서 자체 개발로 사용중 (자체 라이브러리 개발용)
+        - CusHook.js, useWindowInfo.js
+    - (*)useReducer
+    - 다양한 CSS 적용
+        - CSS 직접 적용
+        - CSS Modules 방식
+        - 써드파트 라이브러리 (선택적!!)
+            - css styled-components 방식
+            - emotion 라이브러리 적용 (mui 컴포넌트가 emotion 사용)
+            - tailwind 라이브러리 적용
+                - 'px-2 py-1 bg-red hover:bg-dark-red'
+                - 스타일을 나열하듯이 작성하여서 표현, 용어는 재구성되어 있음
+                    - bg-red => backgroundColor:red
+                - https://www.npmjs.com/package/tailwind-merge
+                    - 참고
+            - *.scss|sass (Sassy CSS)
+                - npm install scss sass
+                - npm install resolve-url-loader sass-loader --save-dev
+                    - --save-dev 개발할때만 사용, 빌드시 제외하는 라이브러리
+            - ...
+        - 실습 
+            - ~/src/css
+    - 빌드 -> 최종 형태!! -> 단독서비스<->백엔드 혹은 백엔드 포함
+
+# ADV
+    - TypeScript 업그레드
+    - Next.js 이식
