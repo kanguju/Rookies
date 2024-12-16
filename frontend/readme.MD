@@ -216,27 +216,62 @@
                 - git config --global user.email "edu2ucoc@gmail.com"
             - git config --global user.name "본인 github 이름"
                 - git config --global user.email "edu2ucoc"
-    
+
+
     - 개발 프로젝트와 github 연동
-        - 기본 형태 
+        - 기본 형태
             1. github에 저장소 생성
-                - github.com 이동
+                - github.com 진입
                 - New > 저장소의 이름 frontend > 설명 적당히 기입
+                - 강사:public, 개인:private
+                - 나머지 설정 X
+                - CREATE REPOSITORY 클릭
             2. 로컬 PC에서 개발 시작
                 - 2주간 진행, 최초는 프로젝트 생성후 바로 연결
             3. 로컬 PC의 프로젝트 와 github 연동(결)
-
+                ```
                 # 개발 -> 파일 생성됨
 
-                # git 명령어 
-                # 로컬 저장소를 만들고, 초기화 => .git 폴더 생성됨
-                echo "# frontend" >> README.md
+                # git 명령어
+                # `로컬 저장소`를 만들고, 초기화 => .git 폴더 생성됨
+                # 최초 1회만 진행, 만약 제거하면, 깨끗한 소스가됨
                 git init
-                git add README.md
-                git commit -m "first commit"
-                git branch -M main
-                git remote add origin git@github.com:kanguju/frontend.git
-                git push -u origin main
-            
-            4. 형상관리진행 
+
+                # 저장소에 추가된 혹은 수정된 파일을 스테이징 해라!! -> 대상으로 지정
+                # 현재 디렉토리에 존재하는 모든 대상 파일을 스테이징 해라!!
+                # 단, .gitignore 파일 있다면, 제외되는 대상 파일을 보고 배제한다
+                # changes <-> staged file
+                # changes : 코드를 수정, 추가 하면 대상이됨
+                # staged : git add xx => github 에 적용된 대상이 됨
+                git add .
                 
+                # 커밋단계 : github(원격 저장소)와 동기하기전 최종 상태로 변경
+                #           메세지 기입(규칙(나중에체크)에 맞게), 변동내용 정리
+                # 로컬 저장소에 저장
+                git commit -m "Feat: 프로젝트 최초 반영"
+                 
+
+                # 브런치의 이름을 main으로 변경 -> 필요시 1회만 진행
+                # 브런치 -> 메인 개발 줄기, 모듈별로 브런치를 만들어서 작업 가능
+                git branch -M main
+
+                # 1회성, 로컬 저장소를 원격 저장소와 연결!!
+                git remote add origin https://github.com/edu2ucoc/frontend.git
+
+                # 푸시 : 로컬 저장소의 변경된 내용을 원격 저장소에 반영하라!!
+                # push <-> pull
+                # 명령어 실행후 github 로그인이 뜨면 => xxx browser 클릭 > 인증
+                # 인증후 다시 명령어 실행
+                git push -u origin main
+                ```
+            4. 형상관리진행
+                - 개인
+                    - 컴퓨터 구동
+                        - 수정된 내용 로컬 저장소 기준으로 최신화
+                            - git pull
+                        - 작업 -> 수정, 신규 추가
+                            - git add .
+                        - 커밋
+                            - git -m "Feat: xx"
+                        - 푸시 -> 원격 저장소 반영
+                            - git push
