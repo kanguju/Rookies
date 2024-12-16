@@ -2,7 +2,7 @@
  * 여러 유형의 css 적용 스타일 컴포넌트
  */
 // 스타일 2번 사용을 위한 모듈 가져오기
-import myStyle from "./index";
+// import myStyle from "./index";
 import myStyle from "."; // 이름이 index이면 .으로 표현 가능
 
 // 스타일 3번 : css styled-components 방식
@@ -10,9 +10,9 @@ import myStyle from "."; // 이름이 index이면 .으로 표현 가능
 import styled from 'styled-components';
 
 // Ttitle이라는 컴포넌트를 생성, 스타일을 가지고 있다.
-const Title = styled/h2`({
-    color:red;
-});
+const Title = styled.h2`({
+    color: red;
+})`;
 
 // Button 이라는 컴포넌트를 생성, 스타일을 가지고 있다, 문법만 다르게
 const Button = styled.button({
@@ -33,8 +33,8 @@ export default function CssComponent(){
             </div>
             
             <div >
-                // <Title>스타일 3, css styled-components</Title>
-                // <Button>스타일 버튼</Button>
+                    <Title>스타일 3, css styled-components</Title>
+                    <Button>스타일 버튼</Button>
             </div>
             <div>
                 스타일 4, scss, sass 사용

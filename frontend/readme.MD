@@ -516,19 +516,99 @@
         - 많은 개발사에서 자체 개발로 사용중 (자체 라이브러리 개발용)
         - CusHook.js, useWindowInfo.js
     - (*)useReducer
-    - 다양한 CSS 적용
+    - (*)다양한 CSS 적용
         - CSS 직접 적용
         - CSS Modules 방식
         - 써드파트 라이브러리 (선택적!!)
-            - css style-components 방식
+            - css styled-components 방식
             - emotion 라이브러리 적용 (mui 컴포넌트가 emotion 사용)
             - tailwind 라이브러리 적용
+                - 'px-2 py-1 bg-red hover:bg-dark-red'
+                - 스타일을 나열하듯이 작성하여서 표현, 용어는 재구성되어 있음
+                    - bg-red => backgroundColor:red
+                - https://www.npmjs.com/package/tailwind-merge
+                    - 참고
             - *.scss|sass (Sassy CSS)
+                - npm install scss sass
+                - npm install resolve-url-loader sass-loader --save-dev
+                    - --save-dev 개발할때만 사용, 빌드시 제외하는 라이브러리
             - ...
         - 실습 
             - ~/src/css
     - 빌드 -> 최종 형태!! -> 단독서비스<->백엔드 혹은 백엔드 포함
 
-# ADV
+# (*)라우팅
+- 리액트의 페이징 처리
+    - URL을 요청하면 -> 특정페이지가 처리되게 구성
+    - react-router-dom => react-router
+        - https://www.npmjs.com/package/react-router-dom
+        - https://github.com/remix-run/react-router
+        - https://reactrouter.com/start/library/installation
+        - 개발 세팅 페이지로 이동
+- 프로젝트 생성
+    - 현재 디렉토리 : ~/app-npm
+    - npx create-vite@latest
+        - create-vite <-> create-react-app : 프로젝트 생성하는 템플릿 모듈
+        ```
+            √ Project name: ... route-app  <= 프로젝트명 입력
+            √ Select a framework: » React  <= 타겟 플랫폼
+            √ Select a variant: » JavaScript + SWC <= 개발언어 + 트렌스컴파일러
+                - SWC <-> Babel(지난주까지 주력으로 사용, 빌드시 사용됨)
+                - Speedy Web Compiler, 속도, 성능에 초점을 맞춘 컴파일러(빌드 도구)
+
+        ```
+    - cd route-app
+    - npm install
+        - package.json에 설정된 독립모듈 설치 
+    - npm i react-router
+        - 별도 라우트 모듈 설치    
+    - npm run dev
+        - 개발된 내용 실행 명령
+    - vite
+        - 프런트 엔드 빌드 툴
+        - SWC와 연계하여 작동
+        - 개발 서버 가동, 수정시 빠른 재가동(반영)
+        - TypeScript/Next.js => vite를 사용
+
+    - 구조
+        - 
+
+- 빌드 -> 최종 서비스 형태
+    - 현재 프로젝트 폴더 내에서 진행
+        - npm run build
+        ```
+            ✓ 38 modules transformed.
+            dist/index.html                   0.53 kB │ gzip:  0.43 kB
+            dist/assets/index-n_ryQ3BS.css    1.39 kB │ gzip:  0.71 kB
+            dist/assets/index-Cy6zQM6m.js   179.59 kB │ gzip: 59.28 kB
+            ✓ built in 1.02s
+            PS C:\Users\edu\Desktop\workspa
+        ```
+    - 최종 결과물
+        - dist
+            L index.html
+            L 리소스
+            L assets
+                L *.js
+                L *.css
+
+# ADV => 고급
     - TypeScript 업그레드
+        - 나중에 자료실 업데이트
     - Next.js 이식
+        - 샘플 제공
+
+# 기본형
+    - 함수형 컴포넌트 사용
+    - 프로젝트 템플릿 
+        - npx create-vite@latest 에서 진행
+    - 절차
+        - 요구사항 맞게 페이지 배치
+        - 개별 페이지에서 요구사항 구현
+            - 훅 중심사용
+                - useState, useEffect, useRef를 기본사용
+            - 통신 axios 정도 사용
+    
+    - 기타
+        - 페이지가 계속 이어지면서(예약/뱅킹/회원가입 서비스등) 데이터를 
+          화면별로 들고 있어야 한다면 -> 전역상태관리 필요!! zustand
